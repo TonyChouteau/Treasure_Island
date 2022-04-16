@@ -33,11 +33,17 @@ class Game:
         elif pirate_name == "anne":
             self.pirates.append(AnneBonny(websocket))
             self.pirates_names.append(pirate_name)
+        elif pirate_name == "longjohn":
+            self.long_john = LongJohn(websocket)
         else:
             return False
         return True
 
     def remove_pirate(self, websocket):
+        if self.long_john is not None and self.long_john.websocket_equals(websocket):
+            self.long_john = None
+            return True
+
         index = -1
         for id in range(len(self.pirates)):
             if self.pirates[id].websocket_equals(websocket):
@@ -47,10 +53,6 @@ class Game:
             self.pirates_names.pop(index)
             return True
         return False
-
-    def set_longjohn(self, websocket):
-        self.long_john = LongJohn(websocket)
-        return True
 
     def start(self):
         if len(self.pirates) < 1 or self.long_john is None or self.map is None:
