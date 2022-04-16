@@ -1,7 +1,7 @@
 from game.Game import Game
 
 
-class Route:
+class Routes:
 
     def __init__(self):
         # Define all routes
@@ -22,6 +22,7 @@ class Route:
         print(result)
 
     def disconnect(self, websocket):
+        # TODO : Handle deco/reco
         result = self.game.remove_pirate(websocket)
         print(result)
 

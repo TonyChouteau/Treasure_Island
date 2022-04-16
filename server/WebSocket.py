@@ -3,14 +3,14 @@ import json
 
 import websockets
 
-from server.Route import Route
+from server.Routes import Routes
 
 
 class WebSocket:
 
     def __init__(self):
         # Handle Routes
-        self.route = Route()
+        self.routes = Routes()
         # Run Websocket
         asyncio.run(self.main())
 
