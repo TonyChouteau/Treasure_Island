@@ -20,12 +20,12 @@ class Routes:
     def handle(self, data_type, data, websocket):
         if self.exists(data_type):
             result = self.route.get(data_type)(data, websocket)
-            Logger.debug(result)
+            Logger.debug(result, "Routes")
 
     def disconnect(self, websocket):
         # TODO : Handle deco/reco
         result = self.game.remove_pirate(websocket)
-        Logger.debug(result)
+        Logger.debug(result, "Routes")
 
     # Routes
     def select_pirate(self, data, websocket):

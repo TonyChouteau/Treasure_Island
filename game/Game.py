@@ -59,5 +59,5 @@ class Game:
         if len(self.pirates) < 1 or self.long_john is None or self.map is None:
             return False
 
-        Logger.debug("Start")
+        Logger.debug("Start", "Game")
         return True

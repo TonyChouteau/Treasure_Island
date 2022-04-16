@@ -7,6 +7,7 @@ class Logger:
         cls.__debug_mode = debug_mode
 
     @classmethod
-    def debug(cls, *messages):
+    def debug(cls, *messages, tag=None):
+        formatted_tag = (' (' + tag + ')') if tag is not None else ''
         if cls.__debug_mode:
-            print(messages)
+            print(f"LOGGER{formatted_tag}: {messages}")

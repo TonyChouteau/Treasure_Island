@@ -22,7 +22,7 @@ class WebSocket:
                 message = await websocket.recv()
             except websockets.ConnectionClosedOK:
                 # If client is disconnected
-                self.route.disconnect(websocket)
+                self.routes.disconnect(websocket)
                 break
 
             # Get content from message
@@ -33,7 +33,7 @@ class WebSocket:
                 continue
 
             # If message type exists and can be handled, handle it
-            self.route.handle(data_type, data, websocket)
+            self.routes.handle(data_type, data, websocket)
 
     async def main(self):
         async with websockets.serve(self.handler, "", 8001):
