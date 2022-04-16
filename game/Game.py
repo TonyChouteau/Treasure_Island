@@ -3,6 +3,7 @@ from game.player.pirate.AnneBonny import AnneBonny
 from game.player.pirate.CharlotteDeBerry import CharlotteDeBerry
 from game.player.pirate.JimHawkins import JimHawkins
 from game.player.pirate.OlivierLevasseur import OlivierLevasseur
+from utils.Logger import Logger
 
 
 class Game:
@@ -58,5 +59,5 @@ class Game:
         if len(self.pirates) < 1 or self.long_john is None or self.map is None:
             return False
 
-        print("Start")
+        Logger.debug("Start")
         return True
