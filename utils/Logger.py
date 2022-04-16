@@ -7,6 +7,6 @@ class Logger:
         cls.__debug_mode = debug_mode
 
     @classmethod
-    def debug(cls, **messages):
+    def debug(cls, *messages):
         if cls.__debug_mode:
             print(messages)
