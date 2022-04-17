@@ -19,7 +19,7 @@ class Game:
         self.map = world
 
     def add_pirate(self, pirate_name, websocket):
-        if pirate_name in self.pirates_names:
+        if pirate_name in self.pirates_names or pirate_name == "longjohn" and self.long_john is not None:
             return False
 
         if pirate_name == "olivier":

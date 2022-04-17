@@ -20,7 +20,7 @@ class WebSocket:
             try:
                 # Wait for a new message from the client
                 message = await websocket.recv()
-            except websockets.ConnectionClosedOK:
+            except websockets.ConnectionClosedError:
                 # If client is disconnected
                 self.routes.disconnect(websocket)
                 break
