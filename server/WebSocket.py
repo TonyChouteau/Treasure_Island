@@ -24,6 +24,10 @@ class WebSocket:
                 # If client is disconnected
                 self.routes.disconnect(websocket)
                 break
+            except websockets.ConnectionClosedOK:
+                # If client is disconnected
+                self.routes.disconnect(websocket)
+                break
 
             # Get content from message
             data = json.loads(message)
