@@ -23,6 +23,9 @@ function welcome(websocketHandler: WebSocketHandler, game: Game) {
     websocketHandler.on("player_list", (data: ArrayLike<Player>) => {
         game.setUserList(data);
         welcome_modal.close();
+
+        $(".welcome").addClass("hidden");
+        $(".configuration").removeClass("hidden");
     });
 }
 
