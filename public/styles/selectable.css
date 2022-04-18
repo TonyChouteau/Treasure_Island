@@ -1,0 +1,21 @@
+.selectable_background {
+    width: 100%;
+    height: 100%;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    transition: all 1s;
+}
+
+.selectable_background:not(.selectable_zoom):not(.disabled):hover {
+    transform: scale(1.05);
+}
+
+.selectable_background.selectable_zoom {
+    transform: scale(1.1);
+}
+
+.selectable_background.disabled {
+    filter: grayscale(1);
+}

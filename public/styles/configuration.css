@@ -1,3 +1,56 @@
+:root {
+  --side-width: 20%;
+  --side-min-width: 300px;
+
+  --height-map-selector: 70%;
+  --height-players-selector: calc(50px * 5);
+}
+
 .configuration {
     background: transparent;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.configuration_game {
+    height: 100%;
+    width: calc(100% - var(--side-width));
+
+    display: flex;
+    flex-direction: column;
+}
+
+.configuration_map {
+    width: 100%;
+    height: var(--height-map-selector);
+}
+
+.configuration_pirate {
+    width: 100%;
+    height: calc(100% - var(--height-map-selector));
+
+    display: flex;
+    flex-direction: row;
+}
+
+.configuration_side {
+    height: 100%;
+    width: var(--side-width);
+    min-width: var(--side-min-width);
+
+    background: #fff;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.configuration_players {
+    width: 100%;
+    height: var(--height-players-selector);
+}
+
+.configuration_chat {
+    width: 100%;
+    height: calc(100%);
 }

@@ -1,5 +1,5 @@
-/// <reference path="../WebSocketHandler.d.ts"/>
-import Modal from "../modal/Modal";
+/// <reference path="../../WebSocketHandler.d.ts"/>
+import Modal from "../components/modal/Modal";
 
 function welcome(websocketHandler: WebSocketHandler, game: Game) {
     const welcome_modal = new Modal(".welcome", {

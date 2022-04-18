@@ -7,8 +7,10 @@
     <!-- CSS -->
     <link rel="stylesheet" href="styles/index.css"/>
     <link rel="stylesheet" href="styles/utils.css"/>
-    <link rel="stylesheet" href="styles/modal.css"/>
     <link rel="stylesheet" href="styles/components.css"/>
+
+    <link rel="stylesheet" href="styles/modal.css"/>
+    <link rel="stylesheet" href="styles/selectable.css"/>
 
     <link rel="stylesheet" href="styles/welcome.css"/>
     <link rel="stylesheet" href="styles/configuration.css"/>
@@ -20,9 +22,17 @@
     <script src="./scripts/app.js"></script>
 </head>
 <body>
-    <div class="page welcome">
+    <div class="page welcome hidden">
     </div>
-    <div class="page configuration hidden">
+    <div class="page configuration">
+        <div class="configuration_game">
+            <div class="configuration_map"></div>
+            <div class="configuration_pirate"></div>
+        </div>
+        <div class="configuration_side">
+            <div class="configuration_players"></div>
+            <div class="configuration_chat"></div>
+        </div>
     </div>
     <div class="page game hidden">
     </div>

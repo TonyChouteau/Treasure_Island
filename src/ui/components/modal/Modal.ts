@@ -43,7 +43,6 @@ Modal.prototype = {
                 button.callback();
             })
         }
-        console.log("x")
 
         this.node.append(this.modal);
     },
