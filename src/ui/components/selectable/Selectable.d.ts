@@ -16,6 +16,7 @@ interface SelectableConstructor {
 }
 
 interface SelectableConfig {
+    id: string;
     backgroundImage: string;
     beforeSelect?: Function;
     afterSelect?: Function;

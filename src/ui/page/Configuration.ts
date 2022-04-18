@@ -25,6 +25,7 @@ Configuration.prototype = {
             let character = characters[id];
             this.selectableCharacters.push(new Selectable(".configuration_pirate", {
                 backgroundImage: character_path + character.image_small,
+                id: character.id,
                 afterSelect: (selected: boolean) => {
                     this.selectableCharacters
                         .forEach((selectable: Selectable) => {
@@ -40,6 +41,10 @@ Configuration.prototype = {
                 footer: "",
             }))
         }
+
+        this.websocketHandler.on("pirates_selected", (data: any) => {
+            // TODO : When the list is receive, disable character already taken
+        })
     },
     handleChat: function() {
         // TODO

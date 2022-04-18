@@ -19,6 +19,7 @@ interface GameConstructor {
 }
 
 interface Pirate {
+    id: string;
     name: string;
     image: string;
     image_small: string;
