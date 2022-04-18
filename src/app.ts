@@ -1,27 +1,13 @@
 /// <reference path="./WebSocketHandler.d.ts"/>
 import WebSocketHandler from "./WebSocketHandler";
+import Game from "./game/Game";
+import welcome from "./hud/welcome";
+import configuration from "./hud/configuration";
 
-let websocketHandler = new WebSocketHandler();
+const websocketHandler = new WebSocketHandler();
+const game = new Game();
 
 $(document).ready(() => {
-    websocketHandler.whenReady(() => {
-        $(".hello").on("click", (e) => {
-            const event = {
-                type: "hello",
-                data: [1, 2, 3]
-            }
-            websocketHandler.send(JSON.stringify(event));
-        });
-        $(".test").on("click", () => {
-            const event = {
-                type: "test",
-                data: {
-                    a: 1,
-                    b: 2,
-                    c: 3
-                }
-            }
-            websocketHandler.send(JSON.stringify(event));
-        });
-    })
+    welcome(websocketHandler, game);
+    configuration(websocketHandler, game);
 })

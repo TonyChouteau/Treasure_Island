@@ -3,8 +3,8 @@ import math
 compass = {0: "W", 1: "SW", 2: "S", 3: "SE", 4: "E", 5: "NE", 6: "N", 7: "NW"}
 px = 0
 py = 0
-x = int(input("Point X : "))
-y = int(input("Point Y : "))
+x = float(input("Point X : "))
+y = float(input("Point Y : "))
 
 # direction = int(input("Direction : "))
 

@@ -4,6 +4,8 @@ const WebSocketHandler = function(this: any) {
     this.websocket = null;
     this.callback = null;
 
+    this.messageHandlers = {};
+
     this.init();
     const handleWebSocket = () => {
         this.websocket.onerror = () => {
@@ -16,6 +18,12 @@ const WebSocketHandler = function(this: any) {
                 this.callback();
             }
         }
+        this.websocket.onmessage = (event: MessageEvent) => {
+            const eventJson: WebSocketEvent = JSON.parse(event.data);
+            if (this.messageHandlers[eventJson.type]) {
+                this.messageHandlers[eventJson.type](eventJson.data);
+            }
+        }
     }
     handleWebSocket();
 
@@ -26,8 +34,12 @@ WebSocketHandler.prototype = {
         this.websocket = new WebSocket("ws://localhost:8001/");
     },
 
-    send: function(event: string) {
-        this.websocket.send(event);
+    send: function(event: WebSocketEvent) {
+        this.websocket.send(JSON.stringify(event));
+    },
+
+    on: function(name: string, callback: Function) {
+        this.messageHandlers[name] = callback;
     },
 
     whenReady: function(callback: Function) {

@@ -1,0 +1,14 @@
+input {
+    height: 30px;
+    font-size: 1.1em;
+    background-color : #eee;
+    border: none;
+}
+
+input:hover {
+    background: #ddd;
+}
+
+input:active, input:focus {
+    outline: none;
+}
