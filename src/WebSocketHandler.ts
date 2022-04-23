@@ -1,4 +1,8 @@
 /// <reference path="./WebSocketHandler.d.ts"/>
+/// <reference path="./utils/utils.ts"/>
+
+import type {UUID} from "./utils/utils";
+import {create_UUID} from "./utils/utils";
 
 const WebSocketHandler = function(this: any) {
     this.websocket = null;
@@ -20,8 +24,11 @@ const WebSocketHandler = function(this: any) {
         }
         this.websocket.onmessage = (event: MessageEvent) => {
             const eventJson: WebSocketEvent = JSON.parse(event.data);
-            if (this.messageHandlers[eventJson.type]) {
-                this.messageHandlers[eventJson.type](eventJson.data);
+            const handlers = this.messageHandlers[eventJson.type];
+            if (handlers) {
+                for (const id in handlers) {
+                    this.messageHandlers[eventJson.type][id](eventJson.data);
+                }
             }
         }
     }
@@ -39,7 +46,22 @@ WebSocketHandler.prototype = {
     },
 
     on: function(name: string, callback: Function) {
-        this.messageHandlers[name] = callback;
+        const uuid = create_UUID();
+        if (!this.messageHandlers[name]) {
+            this.messageHandlers[name] = {};
+            this.messageHandlers[name][uuid] = callback;
+        } else {
+            this.messageHandlers[name][uuid] = callback;
+        }
+        return uuid;
+    },
+
+    off: function(name: string, uuid?: UUID) {
+        if (uuid) {
+            delete this.messageHandlers[name][uuid];
+        } else {
+            delete this.messageHandlers[name];
+        }
     },
 
     whenReady: function(callback: Function) {

@@ -7,6 +7,8 @@ const Configuration = function(websocketHandler: WebSocketHandler, game: Game) {
     this.game = game;
 
     this.selectableCharacters = [];
+    this.selected = null;
+    this.players = [];
 
     this.handleMapSelection();
     this.handleCharacterSelection();
@@ -18,6 +20,16 @@ Configuration.prototype = {
     handleMapSelection: function() {
         // TODO
     },
+    displayCharacters: function() {
+        const characters = this.players.map((p: any) => p.pirate).filter((p: string) => p);
+        this.selectableCharacters.forEach((selectable: Selectable) => {
+            if (characters.includes(selectable.id) && !selectable.selected || (!selectable.selected && this.selected)) {
+                selectable.handleDisable(true);
+            } else if (!this.selected) {
+                selectable.handleDisable(false);
+            }
+        });
+    },
     handleCharacterSelection: function() {
         const characters = this.game.getCharacterList();
         const character_path = this.game.getCharacterPath();
@@ -27,24 +39,42 @@ Configuration.prototype = {
                 backgroundImage: character_path + character.image_small,
                 id: character.id,
                 afterSelect: (selected: boolean) => {
-                    this.selectableCharacters
-                        .forEach((selectable: Selectable) => {
-                            if (!selectable.selected) {
-                                selectable.handleDisable(selected);
-                            }
-                        });
-                    // TODO : Notify Websocket that a character is selected
+                    if (selected) {
+                        this.selected = id;
+                    } else {
+                        this.selected = null;
+                    }
+                    this.displayCharacters();
+                    this.websocketHandler.send({
+                        type: selected ? "select_pirate" : "unselect_player",
+                        data: {
+                            pirate_name: character.id
+                        }
+                    });
                 },
                 style: {
-                    margin: "20px"
+                    width: "20vw",
+                    height: "20vw",
+                    margin: "1vw"
                 },
                 footer: "",
             }))
         }
 
-        this.websocketHandler.on("pirates_selected", (data: any) => {
-            // TODO : When the list is receive, disable character already taken
-        })
+        this.websocketHandler.on("player_list", (data: any) => {
+            this.players = data;
+            this.displayCharacters();
+        });
+        this.websocketHandler.on("reconnect_select", (data: any) => {
+            this.selectableCharacters.forEach((selectable: Selectable) => {
+                if (selectable.id === data.selected) {
+                    selectable.handleSelect(true);
+                    this.selected = data.selected;
+                }
+            });
+            this.players = data.list;
+            this.displayCharacters();
+        });
     },
     handleChat: function() {
         // TODO

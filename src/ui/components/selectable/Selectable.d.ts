@@ -3,6 +3,7 @@ interface Selectable {
     node: JQuery;
     config: SelectableConfig;
     selected: boolean;
+    id: string;
 
     selectable: void | JQuery;
     makeSelectable(): void;
@@ -23,6 +24,7 @@ interface SelectableConfig {
     style?: {
         width?: string;
         height?: string;
+        padding?: string;
         margin?: string;
     };
     footer: string;

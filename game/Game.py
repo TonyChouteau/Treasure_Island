@@ -1,5 +1,3 @@
-import json
-
 from game.player.LongJohn import LongJohn
 from game.player.pirate.AnneBonny import AnneBonny
 from game.player.pirate.CharlotteDeBerry import CharlotteDeBerry
@@ -15,19 +13,12 @@ class Game:
 
         self.clients = []
         self.pirates = []
-        self.pirates_names = []
         self.long_john = None
 
         self.started = False
 
     def set_map(self, world):
         self.map = world
-
-    def get_player_list(self):
-        return [{
-            "username": _client.username,
-            "pirate": _client.player.name if _client.player is not None else None
-        } for _client in self.clients]
 
     def player_join(self, username, client):
         if client in self.clients:
@@ -42,58 +33,74 @@ class Game:
         if client not in self.clients:
             return False
 
-        self.clients = [_client for _client in self.clients if _client is not client]
+        if not self.started:
+            self.clients = [_client for _client in self.clients if _client is not client]
+        else:
+            client.disconnect()
         return True
 
     def add_pirate(self, pirate_name, client):
-        if pirate_name in self.pirates_names or pirate_name == "longjohn" and self.long_john is not None:
+        if pirate_name == "longjohn" and self.long_john is not None \
+                or pirate_name in self.get_pirate_name_list():
             return False
 
         if pirate_name == "olivier":
-            pirate = OlivierLevasseur(client.websocket)
+            pirate = OlivierLevasseur()
             self.pirates.append(pirate)
-            self.pirates_names.append(pirate_name)
         elif pirate_name == "jim":
-            pirate = JimHawkins(client.websocket)
+            pirate = JimHawkins()
             self.pirates.append(pirate)
-            self.pirates_names.append(pirate_name)
         elif pirate_name == "charlotte":
-            pirate = CharlotteDeBerry(client.websocket)
+            pirate = CharlotteDeBerry()
             self.pirates.append(pirate)
-            self.pirates_names.append(pirate_name)
         elif pirate_name == "anne":
-            pirate = AnneBonny(client.websocket)
+            pirate = AnneBonny()
             self.pirates.append(pirate)
-            self.pirates_names.append(pirate_name)
         elif pirate_name == "longjohn":
-            pirate = LongJohn(client.websocket)
+            pirate = LongJohn()
             self.long_john = pirate
         else:
             return False
 
-        client.set_pirate(pirate)
+        client.set_player(pirate)
 
         return True
 
     def remove_pirate(self, client):
-        if self.long_john is not None and self.long_john.websocket_equals(client.websocket):
-            self.long_john = None
-            return True
-
-        index = -1
-        for id in range(len(self.pirates)):
-            if self.pirates[id].websocket_equals(client.websocket):
-                index = id
-        if index != -1:
-            self.pirates.pop(index)
-            self.pirates_names.pop(index)
+        if client.player is not None:
+            if self.long_john == client.player:
+                self.long_john = None
+            else:
+                self.pirates = [_pirate for _pirate in self.pirates if _pirate != client.player]
+            client.set_player(None)
             return True
         return False
 
     def start(self):
-        if len(self.pirates) < 1 or self.long_john is None or self.map is None:
+        if len(self.pirates) < 1 or self.long_john is None: # or self.map is None:
             return False
 
         self.started = True
         Logger.debug("Start", "Game")
         return True
+
+    # Getters
+
+    def get_clients(self):
+        return self.clients
+
+    def get_client(self, websocket):
+        clients = [_client for _client in self.clients if _client.websocket_equals(websocket)]
+        if len(clients) == 1:
+            return clients[0]
+        else:
+            return None
+
+    def get_pirate_name_list(self):
+        return [_client.player.id for _client in self.clients if _client.player is not None]
+
+    def get_player_list_dict(self):
+        return [{
+            "username": _client.username,
+            "pirate": _client.player.id if _client.player is not None else None
+        } for _client in self.clients]

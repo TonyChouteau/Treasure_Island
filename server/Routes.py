@@ -8,7 +8,8 @@ class Routes:
         # Define all routes
         self.route = {
             "player_join": self.player_join,
-            "select_pirate": self.select_pirate
+            "select_pirate": self.select_pirate,
+            "unselect_player": self.unselect_pirate
         }
 
         self.game = Game()
@@ -24,31 +25,83 @@ class Routes:
             Logger.debug(result, "Routes")
             return result
 
+    # Disconnect
+
     def disconnect(self, client):
-        # TODO : Handle deco/reco
         result = self.game.player_leave(client)
-        Logger.debug(result, "Player leave")
-        result2 = self.game.remove_pirate(client)
-        Logger.debug(result, "remove pirates")
+        Logger.debug(result, "player leave")
+        return self.get_players_data()
+
+    def reconnect(self, username):
+        for _client in self.get_clients():
+            if _client.disconnected and _client.username == username:
+                return _client
+        return False
+
+    # Getters
+
+    def get_clients(self):
+        return self.game.get_clients()
+
+    def get_client(self, websocket):
+        return self.game.get_client(websocket)
+
+    # Data Formatting
+
+    def get_players_data(self):
         return {
             "type": "player_list",
-            "data": self.game.get_player_list()
+            "data": self.game.get_player_list_dict()
+        }
+
+    def get_reconnect_data(self, client):
+        return {
+            "type": "reconnect_select",
+            "data": {
+                "list": self.game.get_player_list_dict(),
+                "selected": client.player.id if client.player is not None else None
+            },
         }
 
     # Routes
-    def player_join(self, username, client):
+    def player_join(self, data, client):
         # TODO : Better handling of html/js/css injection
+        username = data.get("username")
+
+        reconnected_client = self.reconnect(username)
+        if reconnected_client:
+            reconnected_client.reconnect(client.websocket)
+            client = reconnected_client
+
+            return {
+                "for_client": {
+                    client: self.get_reconnect_data(client)
+                },
+                "broadcast": self.get_players_data()
+            }
+
         if "(" in username or "{" in username or "\"" in username \
                 or "=" in username or "<" in username or username == "":
             return False
 
+        if username in [_client.username for _client in self.game.get_clients() if not _client.disconnected]:
+            return False
         result = self.game.player_join(username, client)
         Logger.debug(result, "player join")
         return {
-            "type": "player_list",
-            "data": self.game.get_player_list()
+            "broadcast": self.get_players_data()
         }
 
     def select_pirate(self, data, client):
         self.game.remove_pirate(client)
-        return self.game.add_pirate(data.get("pirate_name"), client)
+        self.game.add_pirate(data.get("pirate_name"), client)
+        Logger.debug(self.game.get_player_list_dict(), "pirates")
+        return {
+            "broadcast": self.get_players_data()
+        }
+
+    def unselect_pirate(self, data, client):
+        self.game.remove_pirate(client)
+        return {
+            "broadcast": self.get_players_data()
+        }

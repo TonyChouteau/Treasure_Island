@@ -6,7 +6,8 @@ interface WebSocketHandler {
 
     init(): void;
     send(event: WebSocketEvent): void;
-    on(name: string, callback: Function): void;
+    on(name: string, callback: Function): UUID;
+    off(name: string, uuid?: UUID): void;
     whenReady(callback: Function): void;
 }
 

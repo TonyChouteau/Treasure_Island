@@ -15,22 +15,26 @@ class WebSocket:
         # Run Websocket
         asyncio.run(self.main())
 
-    # Each client has a handler
+    def get_client(self, websocket):
+        client = self.routes.get_client(websocket)
+        if client is None:
+            client = Client(websocket)
+        return client
+
     async def handler(self, websocket):
-        client = Client(websocket)
 
         while True:
             try:
                 # Wait for a new message from the client
                 message = await websocket.recv()
-            except websockets.ConnectionClosedError:
+            except websockets.WebSocketException:
                 # If client is disconnected
+                print("Disconnected")
+                client = self.get_client(websocket)
                 self.routes.disconnect(client)
                 break
-            except websockets.ConnectionClosedOK:
-                # If client is disconnected
-                self.routes.disconnect(client)
-                break
+
+            client = self.get_client(websocket)
 
             # Get content from message
             message = json.loads(message)
@@ -43,8 +47,18 @@ class WebSocket:
             result = self.routes.handle(data_type, message.get("data"), client)
 
             if result is not True and result:
-                for client in self.routes.game.clients:
-                    await client.websocket.send(json.dumps(result))
+                for_client = result.get("for_client")
+                if for_client:
+                    for client in for_client.keys():
+                        await client.websocket.send(json.dumps(for_client.get(client)))
+                broadcast = result.get("broadcast")
+                if broadcast:
+                    for _client in self.routes.get_clients():
+                        if _client.websocket is not None:
+                            if _client.websocket.closed:
+                                self.routes.disconnect(_client)
+                            else:
+                                await _client.websocket.send(json.dumps(broadcast))
 
     async def main(self):
         async with websockets.serve(self.handler, "", 8001):

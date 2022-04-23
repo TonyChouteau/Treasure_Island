@@ -5,7 +5,7 @@
     background-size: cover;
     background-repeat: no-repeat;
 
-    transition: all 1s;
+    transition: all 0.2s;
 }
 
 .selectable_background:not(.selectable_zoom):not(.disabled):hover {
@@ -17,5 +17,5 @@
 }
 
 .selectable_background.disabled {
-    filter: grayscale(1);
+    filter: brightness(0.5) grayscale(1);;
 }

@@ -4,6 +4,11 @@ interface Configuration {
     game: Game;
 
     selectableCharacters: ArrayLike<Selectable>;
+    selected: number | void;
+    players: ArrayLike<{
+        name: string;
+        pirate: string;
+    }>
 
     handleMapSelection(): void;
     handleCharacterSelection(): void;

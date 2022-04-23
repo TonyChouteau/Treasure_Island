@@ -5,6 +5,13 @@ class Client:
 
         self.username = None
         self.player = None
+        self.disconnected = False
+
+    def websocket_equals(self, websocket):
+        if self.websocket:
+            return self.websocket.id == websocket.id
+        else:
+            return False
 
     def set_username(self, username):
         self.username = username
@@ -12,3 +19,10 @@ class Client:
     def set_player(self, player):
         self.player = player
 
+    def disconnect(self):
+        self.disconnected = True
+        self.websocket = None
+
+    def reconnect(self, websocket):
+        self.disconnected = False
+        self.websocket = websocket

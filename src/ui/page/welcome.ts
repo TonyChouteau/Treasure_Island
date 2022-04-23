@@ -14,18 +14,24 @@ function welcome(websocketHandler: WebSocketHandler, game: Game) {
             callback: () => {
                 const event: WebSocketEvent = {
                     type: "player_join",
-                    data: $(".player_username").val()
+                    data: {
+                        username: $(".player_username").val()
+                    }
                 }
                 websocketHandler.send(event)
             }
         }]
     });
-    websocketHandler.on("player_list", (data: ArrayLike<Player>) => {
+    const welcome_player_handler_uuid = websocketHandler.on("player_list", (data: ArrayLike<Player>) => {
         game.setUserList(data);
         welcome_modal.close();
 
         $(".welcome").addClass("hidden");
         $(".configuration").removeClass("hidden");
+
+        console.log("off")
+
+        websocketHandler.off("player_list", welcome_player_handler_uuid);
     });
 }
 

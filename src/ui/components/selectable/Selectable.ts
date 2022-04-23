@@ -3,6 +3,7 @@
 const Selectable = function(this: any, node: string, config: SelectableConfig) {
     this.node = $(node);
     this.config = config;
+    this.id = config.id;
 
     this.disabled = false;
     this.selected = false;
@@ -48,6 +49,9 @@ Selectable.prototype = {
             }
             if (styleConfig.height) {
                 styles.push("height: " + styleConfig.height);
+            }
+            if (styleConfig.padding) {
+                styles.push("padding: " + styleConfig.padding);
             }
             if (styleConfig.margin) {
                 styles.push("margin: " + styleConfig.margin);

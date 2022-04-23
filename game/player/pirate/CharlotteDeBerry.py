@@ -3,7 +3,8 @@ from game.player.pirate.Pirate import Pirate
 
 class CharlotteDeBerry(Pirate):
 
-    name = "Charlotter De Berry"
+    id = "charlotte"
+    name = "Charlotte De Berry"
 
-    def __init__(self, websocket):
-        Pirate.__init__(self, "#a81616", websocket)
+    def __init__(self):
+        Pirate.__init__(self, "#a81616")
