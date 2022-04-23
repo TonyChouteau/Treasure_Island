@@ -4,11 +4,11 @@ import os
 app = Flask(__name__)
 
 @app.route("/")
-def hello_world():
+def root():
     return send_from_directory("../public/", "index.html")
 
 @app.route("/<path:path>")
-def hello_world(path):
+def files(path):
     return send_from_directory("../public/", path)
 
 
