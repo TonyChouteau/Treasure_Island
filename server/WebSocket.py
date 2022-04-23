@@ -68,7 +68,7 @@ class WebSocket:
 
     async def main(self):
 
-        if os.path.isfile("./fullchain.pem"):
+        if os.path.isfile("./fullchain9.pem"):
             ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
             ssl_cert = "./fullchain9.pem"
             ssl_key = "./privkey9.pem"
