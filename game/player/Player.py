@@ -4,7 +4,6 @@ from game.map.InteractiveMap import InteractiveMap
 
 
 class Player:
-
     def __init__(self, color: string, turnNumber: int):
         self.interactive_map = None
         self.color = color
