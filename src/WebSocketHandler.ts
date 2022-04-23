@@ -4,6 +4,8 @@
 import type {UUID} from "./utils/utils";
 import {create_UUID} from "./utils/utils";
 
+import websocket_url from "./websocket_url";
+
 const WebSocketHandler = function(this: any) {
     this.websocket = null;
     this.callback = null;
@@ -38,7 +40,7 @@ const WebSocketHandler = function(this: any) {
 
 WebSocketHandler.prototype = {
     init: function() {
-        this.websocket = new WebSocket("ws://localhost:8001/");
+        this.websocket = new WebSocket(websocket_url);
     },
 
     send: function(event: WebSocketEvent) {
