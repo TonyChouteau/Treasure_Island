@@ -71,10 +71,10 @@ Chat.prototype = {
         const gameMessage = username === "game";
         const html = `
             <div class="chat_message${gameMessage ? " game_message" : ""}">
-                ${!gameMessage ? (username + " : ") : "" }${message}
+                ${!gameMessage ? (username + " : ") : "" }${message.replace(/</g, "&lt;").replace(/>/g, "&gt;")}
             </div>
         `;
-        $(".chat_content", this.node).append(html.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+        $(".chat_content", this.node).append(html);
         this.autoScroll();
     },
 
