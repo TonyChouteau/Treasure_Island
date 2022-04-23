@@ -561,5 +561,5 @@ fabric.properties
 
 assets/examples
 public/scripts/app.js
-public/websocket_url.ts
+src/websocket_url.ts
 *.pem
