@@ -58,6 +58,18 @@
 .configuration_players {
     width: 100%;
     height: var(--height-players-selector);
+    background: #eee;
+    border-bottom: 1px solid #bbb;
+}
+
+.player_line {
+    width: calc(100% - 20px);
+    height: calc(20% - 1px);
+    border-bottom: 1px solid #bbb;
+
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
 }
 
 .configuration_chat {

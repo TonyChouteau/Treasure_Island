@@ -102,5 +102,6 @@ class Game:
     def get_player_list_dict(self):
         return [{
             "username": _client.username,
-            "pirate": _client.player.id if _client.player is not None else None
+            "pirate": _client.player.id if _client.player is not None else None,
+            "full_name": _client.player.name if _client.player is not None else None,
         } for _client in self.clients]

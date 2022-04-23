@@ -1,14 +1,10 @@
-
 interface Configuration {
     websocketHandler: WebSocketHandler;
     game: Game;
 
     selectableCharacters: ArrayLike<Selectable>;
     selected: number | void;
-    players: ArrayLike<{
-        name: string;
-        pirate: string;
-    }>
+    players: Players;
 
     handleMapSelection(): void;
     handleCharacterSelection(): void;
@@ -19,4 +15,17 @@ interface Configuration {
 interface ConfigurationConstructor {
     new (websockethandler: WebSocketHandler, game: Game): Configuration;
     (): ConfigurationConstructor;
+}
+
+interface Player {
+    name: string;
+    pirate: void | string;
+    full_name: void | string;
+}
+
+type Players = ArrayLike<Player>
+
+interface ReconnectData {
+    selected: string;
+    list: Players;
 }

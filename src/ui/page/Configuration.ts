@@ -12,8 +12,8 @@ const Configuration = function(websocketHandler: WebSocketHandler, game: Game) {
 
     this.handleMapSelection();
     this.handleCharacterSelection();
-    this.handleChat();
     this.handlePlayerList();
+    this.handleChat();
 } as ConfigurationConstructor;
 
 Configuration.prototype = {
@@ -61,12 +61,12 @@ Configuration.prototype = {
             }))
         }
 
-        this.websocketHandler.on("player_list", (data: any) => {
+        this.websocketHandler.on("player_list", (data: Players) => {
             this.players = data;
             this.displayCharacters();
-            this.handleChat();
+            this.handlePlayerList();
         });
-        this.websocketHandler.on("reconnect_select", (data: any) => {
+        this.websocketHandler.on("reconnect_select", (data: ReconnectData) => {
             this.selectableCharacters.forEach((selectable: Selectable) => {
                 if (selectable.id === data.selected) {
                     selectable.handleSelect(true);
@@ -75,15 +75,23 @@ Configuration.prototype = {
             });
             this.players = data.list;
             this.displayCharacters();
-            this.handleChat();
+            this.handlePlayerList();
         });
     },
-    handleChat: function() {
-        // TODO
-    },
     handlePlayerList: function() {
-        // TODO
-    }
+        $(".configuration_players").html(this.players.map((player: Player) => {
+            return `
+                <div class="player_line">
+                    <div>
+                        ${player.username}
+                        ${player.full_name ? ("(" + player.full_name + ")") : ""}
+                    </div>
+                </div>
+            `;
+        }));
+    },
+    handleChat: function() {
+    },
 }
 
 export default Configuration;
