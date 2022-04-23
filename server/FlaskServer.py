@@ -3,10 +3,13 @@ import os
 
 app = Flask(__name__)
 
-
 @app.route("/")
 def hello_world():
     return send_from_directory("../public/", "index.html")
+
+@app.route("/<path:path>")
+def hello_world(path):
+    return send_from_directory("../public/", path)
 
 
 if __name__ == "__main__":
