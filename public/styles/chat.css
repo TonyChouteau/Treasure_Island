@@ -1,0 +1,31 @@
+:root {
+    --chat-input-height: 30px;
+}
+
+.chat_message_container {
+    overflow: auto;
+    height: calc(100% - var(--chat-input-height));
+}
+
+.chat_content {
+
+}
+
+.chat_message {
+    width: 100%;
+    height: auto;
+    padding: 5px 10px;
+    overflow-wrap: break-word;
+}
+
+.game_message {
+    color: red;
+    font-weight: bold;
+}
+
+.chat_input {
+    width: 100%;
+    height: var(--chat-input-height);
+    padding: 0;
+    bottom: 0;
+}

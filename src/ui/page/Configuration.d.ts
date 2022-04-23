@@ -1,6 +1,5 @@
 interface Configuration {
-    websocketHandler: WebSocketHandler;
-    game: Game;
+    appContext: AppContext;
 
     selectableCharacters: ArrayLike<Selectable>;
     selected: number | void;
@@ -13,7 +12,7 @@ interface Configuration {
 }
 
 interface ConfigurationConstructor {
-    new (websockethandler: WebSocketHandler, game: Game): Configuration;
+    new (appContext: AppContext): Configuration;
     (): ConfigurationConstructor;
 }
 

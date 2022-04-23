@@ -1,7 +1,7 @@
 /// <reference path="../../WebSocketHandler.d.ts"/>
 import Modal from "../components/modal/Modal";
 
-function welcome(websocketHandler: WebSocketHandler, game: Game) {
+function welcome(appContext: AppContext) {
     const welcome_modal = new Modal(".welcome", {
         size: 1,
         title: "Veuillez choisir un pseudo :",
@@ -12,24 +12,27 @@ function welcome(websocketHandler: WebSocketHandler, game: Game) {
             buttonType: Modal.OK,
             text: "Confirmer",
             callback: () => {
+                const username = $(".player_username").val();
+
+                appContext.username = username;
                 const event: WebSocketEvent = {
                     type: "player_join",
                     data: {
-                        username: $(".player_username").val()
+                        username: username
                     }
                 }
-                websocketHandler.send(event)
+                appContext.websocketHandler.send(event)
             }
         }]
     });
-    const welcome_player_handler_uuid = websocketHandler.on("player_list", (data: ArrayLike<Player>) => {
-        game.setUserList(data);
+    const welcome_player_handler_uuid = appContext.websocketHandler.on("player_list", (data: ArrayLike<Player>) => {
+        appContext.game.setUserList(data);
         welcome_modal.close();
 
         $(".welcome").addClass("hidden");
         $(".configuration").removeClass("hidden");
 
-        websocketHandler.off("player_list", welcome_player_handler_uuid);
+        appContext.websocketHandler.off("player_list", welcome_player_handler_uuid);
     });
 }
 

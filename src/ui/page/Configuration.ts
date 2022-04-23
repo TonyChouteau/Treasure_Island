@@ -2,9 +2,10 @@
 
 import Selectable from "../components/selectable/Selectable";
 
-const Configuration = function(websocketHandler: WebSocketHandler, game: Game) {
-    this.websocketHandler = websocketHandler;
-    this.game = game;
+const Configuration = function(appContext: AppContext) {
+    this.websocketHandler = appContext.websocketHandler;
+    this.game = appContext.game;
+    this.chat = appContext.chat;
 
     this.selectableCharacters = [];
     this.selected = null;
@@ -91,6 +92,7 @@ Configuration.prototype = {
         }));
     },
     handleChat: function() {
+        this.chat.init(".configuration_chat");
     },
 }
 

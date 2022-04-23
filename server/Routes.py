@@ -1,4 +1,5 @@
 from game.Game import Game
+from server.Client import Client
 from utils.Logger import Logger
 
 
@@ -9,7 +10,8 @@ class Routes:
         self.route = {
             "player_join": self.player_join,
             "select_pirate": self.select_pirate,
-            "unselect_player": self.unselect_pirate
+            "unselect_player": self.unselect_pirate,
+            "chat_message": self.chat_message
         }
 
         self.game = Game()
@@ -38,7 +40,7 @@ class Routes:
         for _client in self.get_clients():
             if _client.disconnected and _client.username == username:
                 return _client
-        return False
+        return None
 
     # Getters
 
@@ -63,6 +65,17 @@ class Routes:
                 "list": self.game.get_player_list_dict(),
                 "selected": client.player.id if client.player is not None else None
             },
+        }
+
+    @staticmethod
+    def get_chat_message_data(data, client):
+        Logger.debug(data.get("new_message"), "Message")
+        return {
+            "type": "chat_message",
+            "data": {
+                "sender": client.username if not data.get("game_message", False) else "game",
+                "message": data.get("new_message")
+            }
         }
 
     # Routes
@@ -107,4 +120,9 @@ class Routes:
         self.game.remove_pirate(client)
         return {
             "broadcast": self.get_players_data()
+        }
+
+    def chat_message(self, data, client):
+        return {
+            "broadcast": self.get_chat_message_data(data, client)
         }

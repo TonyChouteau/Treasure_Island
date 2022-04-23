@@ -50,7 +50,7 @@ Game.prototype = {
 
     getCharacterPath: function() {
         return Game.CHARACTERS_IMAGE_PATH;
-    }
+    },
 }
 
 export default Game;

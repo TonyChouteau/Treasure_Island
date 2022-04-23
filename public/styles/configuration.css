@@ -49,7 +49,7 @@
     width: var(--side-width);
     min-width: var(--side-min-width);
 
-    background: #eee;
+    background: #fff;
 
     display: flex;
     flex-direction: column;
@@ -74,4 +74,5 @@
 .configuration_chat {
     width: 100%;
     height: calc(100%);
+    overflow: auto;
 }
