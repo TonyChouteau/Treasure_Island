@@ -1,5 +1,6 @@
 import asyncio
 import json
+import os
 
 import ssl
 import websockets
@@ -66,9 +67,14 @@ class WebSocket:
                             await _client.websocket.send(json.dumps(broadcast))
 
     async def main(self):
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-        ssl_cert = "./fullchain9.pem"
-        ssl_key = "./privkey9.pem"
-        ssl_context.load_cert_chain(ssl_cert, keyfile=ssl_key)
-        async with websockets.serve(self.handler, "", 8001, ssl=ssl_context):
-            await asyncio.Future()  # run forever, wait for new connection
+
+        if os.path.isfile("./fullchain.pem"):
+            ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+            ssl_cert = "./fullchain9.pem"
+            ssl_key = "./privkey9.pem"
+            ssl_context.load_cert_chain(ssl_cert, keyfile=ssl_key)
+            async with websockets.serve(self.handler, "", 8001, ssl=ssl_context):
+                await asyncio.Future()  # run forever, wait for new connection
+        else:
+            async with websockets.serve(self.handler, "", 8001):
+                await asyncio.Future()  # run forever, wait for new connection
