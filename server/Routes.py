@@ -123,6 +123,7 @@ class Routes:
         }
 
     def chat_message(self, data, client):
+        # TODO : HANDLE INJECTION
         return {
             "broadcast": self.get_chat_message_data(data, client)
         }

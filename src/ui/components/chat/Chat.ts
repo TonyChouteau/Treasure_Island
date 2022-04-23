@@ -74,7 +74,7 @@ Chat.prototype = {
                 ${!gameMessage ? (username + " : ") : "" }${message}
             </div>
         `;
-        $(".chat_content", this.node).append(html);
+        $(".chat_content", this.node).append(html.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
         this.autoScroll();
     },
 
