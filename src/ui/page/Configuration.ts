@@ -64,6 +64,7 @@ Configuration.prototype = {
         this.websocketHandler.on("player_list", (data: any) => {
             this.players = data;
             this.displayCharacters();
+            this.handleChat();
         });
         this.websocketHandler.on("reconnect_select", (data: any) => {
             this.selectableCharacters.forEach((selectable: Selectable) => {
@@ -74,6 +75,7 @@ Configuration.prototype = {
             });
             this.players = data.list;
             this.displayCharacters();
+            this.handleChat();
         });
     },
     handleChat: function() {

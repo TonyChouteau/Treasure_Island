@@ -31,7 +31,8 @@ class WebSocket:
                 # If client is disconnected
                 print("Disconnected")
                 client = self.get_client(websocket)
-                self.routes.disconnect(client)
+                result = self.routes.disconnect(client)
+                await self.response(result)
                 break
 
             client = self.get_client(websocket)
@@ -46,19 +47,22 @@ class WebSocket:
             # If message type exists and can be handled, handle it
             result = self.routes.handle(data_type, message.get("data"), client)
 
-            if result is not True and result:
-                for_client = result.get("for_client")
-                if for_client:
-                    for client in for_client.keys():
-                        await client.websocket.send(json.dumps(for_client.get(client)))
-                broadcast = result.get("broadcast")
-                if broadcast:
-                    for _client in self.routes.get_clients():
-                        if _client.websocket is not None:
-                            if _client.websocket.closed:
-                                self.routes.disconnect(_client)
-                            else:
-                                await _client.websocket.send(json.dumps(broadcast))
+            await self.response(result)
+
+    async def response(self, result):
+        if result is not True and result:
+            for_client = result.get("for_client")
+            if for_client:
+                for client in for_client.keys():
+                    await client.websocket.send(json.dumps(for_client.get(client)))
+            broadcast = result.get("broadcast")
+            if broadcast:
+                for _client in self.routes.get_clients():
+                    if _client.websocket is not None:
+                        if _client.websocket.closed:
+                            self.routes.disconnect(_client)
+                        else:
+                            await _client.websocket.send(json.dumps(broadcast))
 
     async def main(self):
         async with websockets.serve(self.handler, "", 8001):

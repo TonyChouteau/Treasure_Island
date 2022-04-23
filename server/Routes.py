@@ -30,7 +30,9 @@ class Routes:
     def disconnect(self, client):
         result = self.game.player_leave(client)
         Logger.debug(result, "player leave")
-        return self.get_players_data()
+        return {
+            "broadcast": self.get_players_data()
+        }
 
     def reconnect(self, username):
         for _client in self.get_clients():
@@ -64,6 +66,7 @@ class Routes:
         }
 
     # Routes
+
     def player_join(self, data, client):
         # TODO : Better handling of html/js/css injection
         username = data.get("username")
