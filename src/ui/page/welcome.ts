@@ -29,8 +29,6 @@ function welcome(websocketHandler: WebSocketHandler, game: Game) {
         $(".welcome").addClass("hidden");
         $(".configuration").removeClass("hidden");
 
-        console.log("off")
-
         websocketHandler.off("player_list", welcome_player_handler_uuid);
     });
 }
