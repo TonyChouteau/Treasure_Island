@@ -11,6 +11,6 @@ def hello_world():
 
 if __name__ == "__main__":
     if os.path.isfile("./fullchain.pem"):
-        app.run(host="vps.tonychouteau.fr", port=7999, debug=True, ssl_context=("./fullchain.pem", "./privkey.pem"))
+        app.run(host="vps.tonychouteau.fr", port=8002, debug=True, ssl_context=("./fullchain.pem", "./privkey.pem"))
     else:
         app.run()
