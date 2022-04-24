@@ -42,6 +42,13 @@ Modal.prototype = {
             $(`.modal_button_${button.buttonType}`, this.modal).on("click", (event: Event) => {
                 button.callback();
             })
+            if (button.buttonType === Modal.OK) {
+                $("input", this.modal).on("keypress", (e: DomEvent) => {
+                    if (e.keyCode === 13) {
+                        button.callback();
+                    }
+                });
+            }
         }
 
         this.node.append(this.modal);
