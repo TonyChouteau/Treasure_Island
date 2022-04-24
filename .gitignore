@@ -563,3 +563,4 @@ assets/examples
 public/scripts/app.js
 src/websocket_url.ts
 *.pem
+ignored.py
