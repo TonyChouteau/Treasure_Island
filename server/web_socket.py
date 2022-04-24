@@ -5,8 +5,8 @@ import os
 import ssl
 import websockets
 
-from server.Client import Client
-from server.Routes import Routes
+from server.client import Client
+from server.routes import Routes
 
 
 class WebSocket:

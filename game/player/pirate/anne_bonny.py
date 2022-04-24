@@ -1,4 +1,4 @@
-from game.player.pirate.Pirate import Pirate
+from game.player.pirate.pirate import Pirate
 
 
 class AnneBonny(Pirate):

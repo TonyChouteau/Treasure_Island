@@ -1,4 +1,4 @@
-from game.Position import Position
+from game.position import Position
 
 
 class HintDistrict:

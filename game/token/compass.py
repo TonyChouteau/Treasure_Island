@@ -1,4 +1,4 @@
-from game.Position import Position
+from game.position import Position
 from math import degrees, atan2, floor
 
 

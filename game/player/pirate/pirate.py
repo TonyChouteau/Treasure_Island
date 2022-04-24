@@ -1,4 +1,4 @@
-from game.player.Player import Player
+from game.player.player import Player
 
 
 class Pirate(Player):

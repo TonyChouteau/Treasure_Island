@@ -1,4 +1,4 @@
-from game.map.InteractiveMap import InteractiveMap
+from game.map.interactive_map import InteractiveMap
 
 
 class PirateMap(InteractiveMap):

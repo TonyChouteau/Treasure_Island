@@ -1,5 +1,5 @@
-from game.Game import Game
-from server.Client import Client
+from game.game import Game
+from server.client import Client
 from utils.Logger import Logger
 
 

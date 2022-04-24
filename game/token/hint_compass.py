@@ -1,8 +1,8 @@
-from game.token import Compass
-from game.Position import Position
+from game.token import compass
+from game.position import Position
 
 
-class HintCompass(Compass):
+class HintCompass(compass):
     def __init__(self, direction1: int, direction2: int) -> None:
         super().__init__()
         self.direction1 = direction1

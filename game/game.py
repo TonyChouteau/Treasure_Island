@@ -1,8 +1,8 @@
-from game.player.LongJohn import LongJohn
-from game.player.pirate.AnneBonny import AnneBonny
-from game.player.pirate.CharlotteDeBerry import CharlotteDeBerry
-from game.player.pirate.JimHawkins import JimHawkins
-from game.player.pirate.OlivierLevasseur import OlivierLevasseur
+from game.player.long_john import LongJohn
+from game.player.pirate.anne_bonny import AnneBonny
+from game.player.pirate.charlotte_de_berry import CharlotteDeBerry
+from game.player.pirate.jim_hawkins import JimHawkins
+from game.player.pirate.olivier_levasseur import OlivierLevasseur
 from utils.Logger import Logger
 
 
