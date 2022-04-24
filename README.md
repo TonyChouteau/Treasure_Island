@@ -18,7 +18,7 @@ ___
 
 ### Python 3.6
 
-```pip install websockets```
+```pip install websockets opencv-python numpy```
 
 ## Development
 ___
