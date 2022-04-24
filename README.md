@@ -34,6 +34,9 @@ ___
 
 ### Compile front-end app from typescript
 
+One last thing is to add a file "websocket_url.ts" in the "src" folder with the content : \
+```export default "ws://localhost:8001/"```
+
 ```npm run dev```
 
 ## Run
