@@ -34,18 +34,16 @@ Configuration.prototype = {
             text: "Ready <span class='players'></span>",
             class: "button_ready",
             callback: () => {
-                this.ready = !this.ready;
-                if (this.ready) {
+                if (!this.ready && this.selected) {
+                    this.ready = true;
                     $(".button_ready").addClass("button_on");
-                } else {
-                    $(".button_ready").removeClass("button_on");
+                    this.webSocketHandler.send({
+                        type: "player_ready",
+                        data: {
+                            "ready": this.ready
+                        }
+                    });
                 }
-                this.webSocketHandler.send({
-                    type: "player_ready",
-                    data: {
-                        "ready": this.ready
-                    }
-                });
             }
         });
     },
@@ -57,6 +55,11 @@ Configuration.prototype = {
             this.selectableCharacters.push(new Selectable(".configuration_pirate", {
                 backgroundImage: character_path + character.image_small,
                 id: character.id,
+                beforeSelect: () => {
+                    if (this.ready) {
+                        return false;
+                    }
+                },
                 afterSelect: (selected: boolean) => {
                     if (selected) {
                         this.selected = id;
