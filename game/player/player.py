@@ -1,4 +1,3 @@
-import string
 from game.position import Position
 
 from game.map.interactive_map import InteractiveMap
@@ -6,13 +5,13 @@ from game.map.interactive_map import InteractiveMap
 
 class Player:
     
-    id : string
-    name : string
+    id : str
+    name : str
     position : Position
-    color : string
+    color : str
     interactive_map : InteractiveMap
     
-    def __init__(self, color: string):#, turnNumber: int):
+    def __init__(self, color: str):#, turnNumber: int):
         self.interactive_map = None
         self.color = color
         self.name = None
