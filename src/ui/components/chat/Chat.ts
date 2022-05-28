@@ -1,13 +1,15 @@
 /// <reference path="./Chat.d.ts"/>
 
-const Chat = function(this: any, webSocketHandler: WebSocketHandler) {
-    this.webSocketHandler = webSocketHandler;
+const Chat = function(this: any, appContext: AppContext) {
+    this.webSocketHandler = appContext.webSocketHandler;
     this.node = null;
 
     this.chatContainer = null;
     this.messageContainer = null;
 
     this.autoScrollEnabled = true;
+
+    this.init(".configuration_chat");
 } as ChatConstructor;
 
 Chat.prototype = {

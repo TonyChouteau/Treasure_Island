@@ -5,9 +5,12 @@ interface Configuration {
     selected: number | void;
     players: Players;
 
-    handleMapSelection(): void;
+    readyButton: JQuery;
+    ready: boolean;
+
+    displayCharacters(): void;
+    handleReadyButton(): void;
     handleCharacterSelection(): void;
-    handleChat(): void;
     handlePlayerList(): void;
 }
 
@@ -20,9 +23,12 @@ interface Player {
     name: string;
     pirate: void | string;
     full_name: void | string;
+    ready: boolean;
 }
 
-type Players = ArrayLike<Player>
+type Players = ArrayLike<Player> & {
+    filter(filter: Function): ArrayLike<Player>;
+}
 
 interface ReconnectData {
     selected: string;

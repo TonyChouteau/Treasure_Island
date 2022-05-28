@@ -1,26 +1,24 @@
 /// <reference path="./Configuration.d.ts"/>
 
 import Selectable from "../components/selectable/Selectable";
+import Button from "../components/button/Button";
 
 const Configuration = function(appContext: AppContext) {
-    this.websocketHandler = appContext.websocketHandler;
+    this.webSocketHandler = appContext.webSocketHandler;
     this.game = appContext.game;
-    this.chat = appContext.chat;
 
     this.selectableCharacters = [];
     this.selected = null;
     this.players = [];
 
-    this.handleMapSelection();
+    this.ready = false;
+
+    this.handleReadyButton();
     this.handleCharacterSelection();
     this.handlePlayerList();
-    this.handleChat();
 } as ConfigurationConstructor;
 
 Configuration.prototype = {
-    handleMapSelection: function() {
-        // TODO
-    },
     displayCharacters: function() {
         const characters = this.players.map((p: any) => p.pirate).filter((p: string) => p);
         this.selectableCharacters.forEach((selectable: Selectable) => {
@@ -28,6 +26,26 @@ Configuration.prototype = {
                 selectable.handleDisable(true);
             } else if (!this.selected) {
                 selectable.handleDisable(false);
+            }
+        });
+    },
+    handleReadyButton: function() {
+        this.readyButton = new Button(".configuration_start", {
+            text: "Ready <span class='players'></span>",
+            class: "button_ready",
+            callback: () => {
+                this.ready = !this.ready;
+                if (this.ready) {
+                    $(".button_ready").addClass("button_on");
+                } else {
+                    $(".button_ready").removeClass("button_on");
+                }
+                this.webSocketHandler.send({
+                    type: "player_ready",
+                    data: {
+                        "ready": this.ready
+                    }
+                });
             }
         });
     },
@@ -46,7 +64,7 @@ Configuration.prototype = {
                         this.selected = null;
                     }
                     this.displayCharacters();
-                    this.websocketHandler.send({
+                    this.webSocketHandler.send({
                         type: selected ? "select_pirate" : "unselect_player",
                         data: {
                             pirate_name: character.id
@@ -62,12 +80,17 @@ Configuration.prototype = {
             }))
         }
 
-        this.websocketHandler.on("player_list", (data: Players) => {
+        this.webSocketHandler.on("player_list", (data: Players) => {
             this.players = data;
             this.displayCharacters();
             this.handlePlayerList();
+
+            const total = data.length;
+            const ready = data.filter((p: Player) => p.ready).length;
+            console.log(data);
+            $(".players", this.readyButton.button).html(ready + "/" + total);
         });
-        this.websocketHandler.on("reconnect_select", (data: ReconnectData) => {
+        this.webSocketHandler.on("reconnect_select", (data: ReconnectData) => {
             this.selectableCharacters.forEach((selectable: Selectable) => {
                 if (selectable.id === data.selected) {
                     selectable.handleSelect(true);
@@ -90,9 +113,6 @@ Configuration.prototype = {
                 </div>
             `;
         }));
-    },
-    handleChat: function() {
-        this.chat.init(".configuration_chat");
     },
 }
 

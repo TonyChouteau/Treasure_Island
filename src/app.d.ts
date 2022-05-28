@@ -1,7 +1,6 @@
 interface AppContext {
-    websocketHandler: WebSocketHandler;
+    webSocketHandler: WebSocketHandler;
     game: Game;
-    chat: Chat;
     username: void | string;
 }
 

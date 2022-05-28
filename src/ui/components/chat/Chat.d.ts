@@ -16,7 +16,7 @@ interface Chat {
 }
 
 interface ChatConstructor {
-    new (websocketHandler: WebSocketHandler): Chat;
+    new (appContext: AppContext): Chat;
     (): void;
 }
 interface IncomingMessage {

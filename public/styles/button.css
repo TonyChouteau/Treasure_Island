@@ -1,0 +1,17 @@
+.button {
+    background: #eee;
+    width: fit-content;
+
+    padding: 10px;
+
+    user-select: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #ddd;
+}
+
+.button:active {
+    background: #ccc;
+}

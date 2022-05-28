@@ -16,7 +16,7 @@ ___
 
 ```npm install```
 
-### Python 3.6
+### Python >=3.6
 
 ```pip install websockets opencv-python numpy```
 

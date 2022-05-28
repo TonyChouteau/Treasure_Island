@@ -11,7 +11,8 @@ class Routes:
             "player_join": self.player_join,
             "select_pirate": self.select_pirate,
             "unselect_player": self.unselect_pirate,
-            "chat_message": self.chat_message
+            "chat_message": self.chat_message,
+            "player_ready": self.player_ready
         }
 
         self.game = Game()
@@ -126,4 +127,10 @@ class Routes:
         # TODO : HANDLE INJECTION
         return {
             "broadcast": self.get_chat_message_data(data, client)
+        }
+
+    def player_ready(self, data, client):
+        client.ready = data.get("ready")
+        return {
+            "broadcast": self.get_players_data()
         }

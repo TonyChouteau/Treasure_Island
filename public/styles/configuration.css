@@ -3,43 +3,38 @@
   --side-min-width: 300px;
 
   --height-players-selector: calc(50px * 5);
+  --height-ready-button: 100px;
 }
 
-.configuration {
+.game_container {
     background: transparent;
 
     display: flex;
     flex-direction: row;
 }
 
-.configuration_game {
-    height: 100%;
-    width: calc(100% - var(--side-width));
-
+.configuration_character {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    position: relative;
-}
-
-.configuration_full {
-    width: 100%;
-    height: 100%;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.configuration_map {
 }
 
 .configuration_pirate {
+    width: 100%;
+    height: calc(100% - var(--height-ready-button));
+
     flex-wrap: wrap;
 
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.configuration_start {
+    height: var(--height-ready-button);
+
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -75,4 +70,8 @@
     width: 100%;
     height: calc(100%);
     overflow: auto;
+}
+
+.button_ready.button_on {
+    background: green;
 }

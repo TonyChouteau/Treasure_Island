@@ -5,6 +5,8 @@ class Client:
 
         self.username = None
         self.player = None
+
+        self.ready = False
         self.disconnected = False
 
     def websocket_equals(self, websocket):

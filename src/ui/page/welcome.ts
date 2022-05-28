@@ -21,18 +21,25 @@ function welcome(appContext: AppContext) {
                         username: username
                     }
                 }
-                appContext.websocketHandler.send(event)
+                appContext.webSocketHandler.send(event)
             }
         }]
     });
-    const welcome_player_handler_uuid = appContext.websocketHandler.on("player_list", (data: ArrayLike<Player>) => {
+    const welcome_player_handler_uuid = appContext.webSocketHandler.on("player_list", (data: ArrayLike<Player>) => {
         appContext.game.setUserList(data);
         welcome_modal.close();
 
         $(".welcome").addClass("hidden");
-        $(".configuration").removeClass("hidden");
+        $(".game_container").removeClass("hidden");
 
-        appContext.websocketHandler.off("player_list", welcome_player_handler_uuid);
+        appContext.webSocketHandler.send({
+            type: "player_ready",
+            data: {
+                "ready": false
+            }
+        });
+
+        appContext.webSocketHandler.off("player_list", welcome_player_handler_uuid);
     });
 }
 

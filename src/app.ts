@@ -6,17 +6,16 @@ import welcome from "./ui/page/welcome";
 import Configuration from "./ui/page/Configuration";
 import Chat from "./ui/components/chat/Chat";
 
-const websocketHandler = new WebSocketHandler();
+const webSocketHandler = new WebSocketHandler();
 const game = new Game();
-const chat = new Chat(websocketHandler);
 
 const appContext = {
-    websocketHandler: websocketHandler,
-    game: game,
-    chat: chat
+    webSocketHandler: webSocketHandler,
+    game: game
 } as AppContext;
 
 $(document).ready(() => {
     welcome(appContext);
     new Configuration(appContext);
+    new Chat(appContext);
 })

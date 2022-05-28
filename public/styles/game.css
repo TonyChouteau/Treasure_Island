@@ -1,0 +1,11 @@
+.game_container {
+    background: transparent;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.main_side {
+    height: 100%;
+    width: calc(100% - var(--side-width));
+}

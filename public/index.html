@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="styles/utils.css"/>
     <link rel="stylesheet" href="styles/components.css"/>
 
+    <link rel="stylesheet" href="styles/button.css"/>
     <link rel="stylesheet" href="styles/modal.css"/>
     <link rel="stylesheet" href="styles/selectable.css"/>
     <link rel="stylesheet" href="styles/chat.css"/>
 
     <link rel="stylesheet" href="styles/welcome.css"/>
+    <link rel="stylesheet" href="styles/game.css"/>
     <link rel="stylesheet" href="styles/configuration.css"/>
 
     <!-- Vendor scripts -->
@@ -25,17 +27,18 @@
 <body>
     <div class="page welcome">
     </div>
-    <div class="page configuration hidden">
-        <div class="configuration_game">
+    <div class="page game_container hidden">
+        <div class="main_side configuration_character">
             <div class="configuration_full configuration_pirate"></div>
-            <div class="configuration_full configuration_map hidden"></div>
+            <div class="configuration_start"></div>
+        </div>
+        <div class="main_side game hidden">
+
         </div>
         <div class="configuration_side">
             <div class="configuration_players"></div>
             <div class="configuration_chat"></div>
         </div>
-    </div>
-    <div class="page game hidden">
     </div>
 </body>
 </html>
