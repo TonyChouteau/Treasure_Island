@@ -1,5 +1,5 @@
 from server.web_socket import WebSocket
-from utils.Logger import Logger
+from utils.logger import Logger
 
 Logger.debug_mode(True)
 
