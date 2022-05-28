@@ -10,6 +10,7 @@ class LongJohn(Player):
 
     def __init__(self):
         Player.__init__(self, "#000000")
+        self.id = "longjohn"
         self.name = "Long John Silver"
         self.is_free = False
         self.personal_map = None

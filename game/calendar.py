@@ -1,5 +1,3 @@
-from player import player
-
 
 class Calendar:
     def __init__(self, players):

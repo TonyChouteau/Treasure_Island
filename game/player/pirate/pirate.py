@@ -1,6 +1,6 @@
 from game.player.player import Player
 from game.map.pirate_map import PirateMap
-from token.compass import Compass
+from game.token.compass import Compass
 
 
 class Pirate(Player):

@@ -7,7 +7,6 @@ from game.player.pirate.olivier_levasseur import OlivierLevasseur
 from game.map.map import Map
 from utils.Logger import Logger
 
-
 class Game:
     
     map : Map

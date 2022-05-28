@@ -1,11 +1,12 @@
 import string
-from position import Position
+from game.position import Position
 
 from game.map.interactive_map import InteractiveMap
 
 
 class Player:
     
+    id : string
     name : string
     position : Position
     color : string
