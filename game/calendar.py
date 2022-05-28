@@ -1,5 +1,3 @@
-from player import player
-
 
 class Calendar:
     def __init__(self, players):
@@ -13,10 +11,10 @@ class Calendar:
 
         if len(self.players) % 2 == 0:  # 2 or 4 players
             self.calendar_board = [0 for _ in range(19)]
-            self.events = "1213104502050505000"
+            self.events = "1213104102010101000"
         else:
             self.calendar_board = [0 for _ in range(17)]
-            self.events = "12130145250550000"
+            self.events = "12130141210110000"
 
     def next(self):
         # Move the players around
@@ -27,9 +25,23 @@ class Calendar:
                 self.date - len(self.players)
             ]
             self.calendar_board[self.date - len(self.players)] = 0
+            self.play_event(self.date)
+            self.date += 1
 
-        self.date += 1
-        if self.date > len(self.calendar_board):
-            pass  # end
-        if self.events[self.date] != 0:
-            pass  # Handle various events
+    def play_event(self, event_date):
+        if event_date == len(self.calendar_board):
+            pass  # Release LJS : continue playing until someone wins
+        else:
+            event = self.events[event_date]
+            if event == 1:
+                pass # LJS chooses a hint (black marked or not) from his hand to reveal and play
+                # long_john.play_hint()
+            elif event == 2:
+                pass # LJS gets a bluff
+                # long_john.add_bluff()
+            elif event == 3:
+                pass # The player activating this event choses one of the 9 jails to place LJS on. 
+            elif event == 4:
+                pass # LJS discards his hand and draws 3 black marked hints
+            else:
+                pass
