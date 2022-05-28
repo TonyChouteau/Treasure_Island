@@ -10,11 +10,11 @@ class Zone(Enum):
     VOLCANO_AND_COAST = 6
     TEMPLE_AND_COAST = 7
 
-    def is_volcano(self):
+    def is_volcano(self) -> bool:
         return self == self.VOLCANO or self == self.VOLCANO_AND_COAST or self == self.VOLCANO_AND_TEMPLE
 
-    def is_temple(self):
+    def is_temple(self) -> bool:
         return self == self.TEMPLE or self == self.VOLCANO_AND_TEMPLE or self == self.TEMPLE_AND_COAST
 
-    def is_coast(self):
+    def is_coast(self) -> bool:
         return self == self.COAST or self == self.VOLCANO_AND_COAST or self == self.TEMPLE_AND_COAST
