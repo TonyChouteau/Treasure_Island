@@ -3,8 +3,10 @@ from game.player.pirate.pirate import Pirate
 
 class CharlotteDeBerry(Pirate):
 
-    id = "charlotte"
-    name = "Charlotte De Berry"
-
     def __init__(self):
         Pirate.__init__(self, "#a81616")
+        self.id = "charlotte"
+        self.name = "Charlotte De Berry"
+        
+    def get_distric_hints():
+        pass
