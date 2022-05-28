@@ -3,7 +3,7 @@ from game.player.pirate.anne_bonny import AnneBonny
 from game.player.pirate.charlotte_de_berry import CharlotteDeBerry
 from game.player.pirate.jim_hawkins import JimHawkins
 from game.player.pirate.olivier_levasseur import OlivierLevasseur
-from utils.Logger import Logger
+from utils.logger import Logger
 
 
 class Game:

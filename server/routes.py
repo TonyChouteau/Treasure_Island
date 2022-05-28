@@ -1,6 +1,5 @@
 from game.game import Game
-from server.client import Client
-from utils.Logger import Logger
+from utils.logger import Logger
 
 
 class Routes:
