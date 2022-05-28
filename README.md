@@ -27,7 +27,7 @@ ___
 
 //
 
-### Make jquery d.ts files for typescript
+### Make jquery d.ts files for typescript (Don't do this again)
 
 ```npm install typings``` \
 ```.\node_modules\.bin\typings install dt~jquery --global --save```
