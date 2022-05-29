@@ -24,12 +24,15 @@ Selectable.prototype = {
 
         $(".selectable_background", this.selectable).on("click", () => {
             if (!this.disabled) {
+                let canceled = false;
                 if (this.config.beforeSelect) {
-                    this.config.beforeSelect(this.selected);
+                    canceled = this.config.beforeSelect(this.selected) === false;
                 }
-                this.handleSelect();
-                if (this.config.afterSelect) {
-                    this.config.afterSelect(this.selected);
+                if (!canceled) {
+                    this.handleSelect();
+                    if (this.config.afterSelect) {
+                        this.config.afterSelect(this.selected);
+                    }
                 }
             }
         });

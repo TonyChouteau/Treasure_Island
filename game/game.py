@@ -1,16 +1,25 @@
+from game.calendar import Calendar
 from game.player.long_john import LongJohn
 from game.player.pirate.anne_bonny import AnneBonny
 from game.player.pirate.charlotte_de_berry import CharlotteDeBerry
 from game.player.pirate.jim_hawkins import JimHawkins
 from game.player.pirate.olivier_levasseur import OlivierLevasseur
-from utils.Logger import Logger
-
+from game.map.map import Map
+from utils.logger import Logger
 
 class Game:
+    
+    map : Map
+    calendar : Calendar
+    clients : list
+    pirates : list
+    long_john : LongJohn
+    started : bool
 
     def __init__(self):
         self.map = None
 
+        self.calendar = None
         self.clients = []
         self.pirates = []
         self.long_john = None

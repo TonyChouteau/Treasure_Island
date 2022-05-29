@@ -73,5 +73,5 @@
 }
 
 .button_ready.button_on {
-    background: green;
+    filter: brightness(0.5);
 }
