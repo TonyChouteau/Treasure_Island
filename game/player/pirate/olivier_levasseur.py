@@ -7,9 +7,9 @@ class OlivierLevasseur(Pirate):
         Pirate.__init__(self, "#de6c26")
         self.id = "olivier"
         self.name = "Olivier Levasseur"
-        
-    def telescope(void : bool): #Should be SearchResult
+
+    def telescope(void: bool):  # Should be SearchResult
         pass
-    
+
     def move():
         pass

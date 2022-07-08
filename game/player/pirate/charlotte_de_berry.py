@@ -8,5 +8,5 @@ class CharlotteDeBerry(Pirate):
         self.id = "charlotte"
         self.name = "Charlotte De Berry"
         
-    def get_distric_hints():
+    def get_district_hints():
         pass
