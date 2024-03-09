@@ -7,15 +7,23 @@ from game.map.zone import Zone
 HEATMAPS_PATH = "assets/map/heatmap_1400/components"
 
 
+# Singleton
 class Map:
+    __instance = None
+
+    def __new__(cls):
+        if not hasattr(cls, 'instance'):
+            cls.__instance = super(Map, cls).__new__(cls)
+        return cls.__instance
+
     district_map: np.ndarray = cv2.imread(f"{HEATMAPS_PATH}/district_map.png", cv2.IMREAD_GRAYSCALE)
     biome_map: np.ndarray = cv2.imread(f"{HEATMAPS_PATH}/biome_map.png", cv2.IMREAD_GRAYSCALE)
     zone_map: np.ndarray = cv2.imread(f"{HEATMAPS_PATH}/zone_map.png", cv2.IMREAD_GRAYSCALE)
-
+    
     treasure: Position
 
-    def __init__(self, folder: str):
-        self.folder = folder
+    #     def __init__(self, folder: str):
+    #         self.folder = folder
 
     def which_district(self, point: Position) -> int:
         return self.district_map[point.x, point.y]

@@ -1,3 +1,6 @@
+EVEN_PLAYERS_EVENT_CODES = "1213104102010101000"
+ODD_PLAYERS_EVENT_CODES = "12130141210110000"
+
 
 class Calendar:
     def __init__(self, players):
@@ -11,10 +14,10 @@ class Calendar:
 
         if len(self.players) % 2 == 0:  # 2 or 4 players
             self.calendar_board = [0 for _ in range(19)]
-            self.events = "1213104102010101000"
+            self.events = EVEN_PLAYERS_EVENT_CODES
         else:
             self.calendar_board = [0 for _ in range(17)]
-            self.events = "12130141210110000"
+            self.events = ODD_PLAYERS_EVENT_CODES
 
     def next(self):
         # Move the players around
@@ -23,7 +26,7 @@ class Calendar:
         else:
             self.calendar_board[self.date] = self.calendar_board[
                 self.date - len(self.players)
-            ]
+                ]
             self.calendar_board[self.date - len(self.players)] = 0
             self.play_event(self.date)
             self.date += 1
@@ -34,14 +37,14 @@ class Calendar:
         else:
             event = self.events[event_date]
             if event == 1:
-                pass # LJS chooses a hint (black marked or not) from his hand to reveal and play
+                pass  # LJS chooses a hint (black marked or not) from his hand to reveal and play
                 # long_john.play_hint()
             elif event == 2:
-                pass # LJS gets a bluff
+                pass  # LJS gets a bluff
                 # long_john.add_bluff()
             elif event == 3:
-                pass # The player activating this event choses one of the 9 jails to place LJS on. 
+                pass  # The player activating this event choses one of the 9 jails to place LJS on.
             elif event == 4:
-                pass # LJS discards his hand and draws 3 black marked hints
+                pass  # LJS discards his hand and draws 3 black marked hints
             else:
                 pass
