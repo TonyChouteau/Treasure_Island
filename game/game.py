@@ -9,15 +9,15 @@ from utils.logger import Logger
 
 class Game:
     
-    map : Map
-    calendar : Calendar
-    clients : list
-    pirates : list
-    long_john : LongJohn
-    started : bool
+    map_: Map
+    calendar: Calendar
+    clients: list
+    pirates: list
+    long_john: LongJohn
+    started: bool
 
     def __init__(self):
-        self.map = None
+        self.map_ = None
 
         self.calendar = None
         self.clients = []
@@ -27,7 +27,7 @@ class Game:
         self.started = False
 
     def set_map(self, world):
-        self.map = world
+        self.map_ = world
 
     def player_join(self, username, client):
         if client in self.clients:
@@ -86,7 +86,7 @@ class Game:
         return False
 
     def start(self):
-        if len(self.pirates) < 1 or self.long_john is None: # or self.map is None:
+        if len(self.pirates) < 1 or self.long_john is None:  # or self.map is None:
             return False
 
         self.started = True

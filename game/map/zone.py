@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Zone(Enum):
     NONE = 0
     LIMIT = 1
