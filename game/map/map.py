@@ -6,10 +6,13 @@ from game.map.zone import Zone
 
 HEATMAPS_PATH = "assets/map/heatmap_1400/components"
 
+
 class Map:
     district_map: np.ndarray = cv2.imread(f"{HEATMAPS_PATH}/district_map.png", cv2.IMREAD_GRAYSCALE)
-    biome_map = cv2.imread(f"{HEATMAPS_PATH}/biome_map.png", cv2.IMREAD_GRAYSCALE)
-    zone_map = cv2.imread(f"{HEATMAPS_PATH}/zone_map.png", cv2.IMREAD_GRAYSCALE)
+    biome_map: np.ndarray = cv2.imread(f"{HEATMAPS_PATH}/biome_map.png", cv2.IMREAD_GRAYSCALE)
+    zone_map: np.ndarray = cv2.imread(f"{HEATMAPS_PATH}/zone_map.png", cv2.IMREAD_GRAYSCALE)
+
+    treasure: Position
 
     def __init__(self, folder: str):
         self.folder = folder

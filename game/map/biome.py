@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Biome(Enum):
     NONE = 0
     FOREST = 1
